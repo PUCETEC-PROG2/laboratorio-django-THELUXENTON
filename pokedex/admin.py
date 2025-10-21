@@ -7,4 +7,4 @@ class PokemonAdmin(admin.ModelAdmin):
 
 @admin.register(Trainer)
 class TrainerAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name', 'age', 'date_of_birth')  
+    list_display = ('first_name', 'last_name', 'age','level', 'date_of_birth')  
