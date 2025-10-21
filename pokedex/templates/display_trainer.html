@@ -1,11 +1,22 @@
-<!DOCTYPE html>
 <html>
 <head>
-    <title>Trainer Detail</title>
+    <title>Pokedex - Trainer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 </head>
 <body>
-    <h1>{{ trainer.first_name }} {{ trainer.last_name }}</h1>
-    <p><strong>Age:</strong> {{ trainer.age }}</p>
-    <p><strong>Date of Birth:</strong> {{ trainer.date_of_birth }}</p>
+    <div class="container">
+        <div class="bg-primary text-white p-4 text-center">
+            <h1>Mi Pokedex</h1>
+        </div>
+        <p class="p-2">Has elegido al entrenador: <strong>{{ trainer.first_name }} {{ trainer.last_name }}</strong></p>
+        <h3>Detalles del entrenador</h3>
+        <ul>
+            <li>Nombre: {{ trainer.first_name }}</li>
+            <li>Apellido: {{ trainer.last_name }}</li>
+            <li>Edad: {{ trainer.age }}</li>
+             <li>Edad: {{ trainer.age }}</li>
+            <li>Fecha de nacimiento: {{ trainer.date_of_birth }}</li>
+        </ul>
+    </div>
 </body>
 </html>
