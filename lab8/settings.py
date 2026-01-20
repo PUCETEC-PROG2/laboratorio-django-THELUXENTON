@@ -62,7 +62,7 @@ ROOT_URLCONF = 'lab8.urls'
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173", # Puerto de Vite/React
     "http://127.0.0.1:5173",
-    "http://localhost:8000", # Puerto de Django (si lo necesitas)
+    "http://localhost:8000", # Puerto de Django 
     "http://127.0.0.1:8000",
 ]
 TEMPLATES = [

@@ -20,7 +20,7 @@ def index(request):
     return HttpResponse(template.render(context, request))
 
 def pokemon(request, id):
-    # Usar get_object_or_404 es más seguro que .get() por si el ID no existe
+    # Usamos get_object_or_404 es más seguro que .get() por si el ID no existe
     pokemon = get_object_or_404(Pokemon, id=id) 
     template = loader.get_template('display_pokemon.html')
     context = {
@@ -82,8 +82,8 @@ def add_trainer(request):
             return redirect('pokedex:trainer_list') 
     else:
         form = EntrenadorForm()
-    # Puedes reusar un template genérico o crear uno nuevo 'trainer_form.html'
     return render(request, 'trainer_form.html', {'form': form})
 
 class CustomLoginView(LoginView):
     template_name = 'login_form.html'
+    

@@ -18,7 +18,6 @@ class PokemonViewSet(viewsets.ModelViewSet):
     
     authentication_classes = [OAuth2Authentication]
     # No definimos permission_classes globalmente, lo manejamos en el método:
-    # permission_classes = [IsAuthenticated, TokenHasScope] <-- ELIMINADO
     required_scopes = ['write']  
 
     # Permisos para PokemonViewSet (Lectura abierta, Escritura con token)
@@ -28,22 +27,20 @@ class PokemonViewSet(viewsets.ModelViewSet):
             return [TokenHasScope(), IsAuthenticated()]
         
         # Para GET, HEAD, OPTIONS (lectura), permitimos a cualquiera
-        return [AllowAny()] # <--- ¡SOLUCIÓN PARA QUE REACT VEA LA LISTA!
+        return [AllowAny()] 
 
 
 class EntrenadorViewSet(viewsets.ModelViewSet):
     queryset = Trainer.objects.all()
     serializer_class = EntrenadorSerializer
-
     authentication_classes = [OAuth2Authentication]
     required_scopes = ['write']
 
-    # Permisos para EntrenadorViewSet (Corregimos la lógica para que no falle)
+    # --- PARA PERMITIR VER LA LISTA SIN LOGIN ---
     def get_permissions(self):
-        # Si tienes TokenHasReadWriteScope, debes asegurarte de que esté importado
-        if self.request.method in ['GET', 'HEAD', 'OPTIONS']:
-            # La lectura también requiere autenticación y scope aquí, si eso es lo que deseas
-            return [IsAuthenticated(), TokenHasScope()] 
-        else:
-            # Para escritura, usa el scope completo (TokenHasReadWriteScope)
-            return [IsAuthenticated(), TokenHasReadWriteScope()]
+        # Para escribir (POST, PUT, DELETE) pedimos login
+        if self.request.method in ['POST', 'PUT', 'PATCH', 'DELETE']:
+            return [TokenHasScope(), IsAuthenticated()]
+        
+        # Para leer (GET), dejamos pasar a cualquiera (AllowAny)
+        return [AllowAny()]
