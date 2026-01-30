@@ -84,6 +84,25 @@ def add_trainer(request):
         form = EntrenadorForm()
     return render(request, 'trainer_form.html', {'form': form})
 
+# --- NUEVAS VISTAS AGREGADAS PARA EDITAR Y ELIMINAR ENTRENADORES ---
+
+@login_required
+def edit_trainer(request, id):
+    trainer = get_object_or_404(Trainer, pk=id)
+    if request.method == 'POST':
+        form = EntrenadorForm(request.POST, instance=trainer)
+        if form.is_valid():
+            form.save()
+            return redirect('pokedex:trainer_list')
+    else:
+        form = EntrenadorForm(instance=trainer)
+    return render(request, 'trainer_form.html', {'form': form})
+
+@login_required
+def delete_trainer(request, id):
+    trainer = get_object_or_404(Trainer, pk=id)
+    trainer.delete()
+    return redirect('pokedex:trainer_list')
+
 class CustomLoginView(LoginView):
     template_name = 'login_form.html'
-    
